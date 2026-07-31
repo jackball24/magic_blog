@@ -213,9 +213,44 @@
 	color: var(--deep-text);
 	font-size: 1.125rem;
 	font-weight: 800;
-	line-height: 1.35;
-	text-overflow: ellipsis;
-	white-space: nowrap;
+	line-height: 1.4;
+	overflow-wrap: anywhere;
+	text-decoration-color: transparent;
+	text-decoration-thickness: 1px;
+	text-underline-offset: 0.2em;
+	transition: color 180ms ease, text-decoration-color 180ms ease;
+}
+
+.article-list-card__title::before {
+	width: 6px;
+	height: 1.15em;
+	margin-top: 0.125em;
+	border-radius: var(--radius-full);
+	background: var(--article-title-marker);
+	content: "";
+	flex: 0 0 6px;
+	transform-origin: center;
+	transition: transform 180ms ease, opacity 180ms ease;
+}
+
+.article-list-card:hover .article-list-card__title::before,
+.article-list-card:focus-within .article-list-card__title::before {
+	transform: scaleY(1.12);
+}
+
+.article-list-card--pinned .article-list-card__title {
+	font-size: clamp(1.35rem, 2.5vw, 1.65rem);
+}
+
+.article-list-card--regular .article-list-card__title {
+	font-size: clamp(1.05rem, 2vw, 1.25rem);
+}
+
+.article-list-card__article-link:hover,
+.article-list-card__article-link:focus-visible {
+	text-decoration-line: underline;
+	text-decoration-color: currentColor;
+>>>>>>> 1f98b64 (feat: 更新友链列车到达和离开的动画效果，优化封面图加载逻辑)
 }
 
 .article-list-card__lock {
