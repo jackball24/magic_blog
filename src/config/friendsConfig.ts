@@ -325,6 +325,33 @@ export const friendsConfig: FriendLink[] = [
 		weight: 5,
 		enabled: true,
 	},
+	{
+		title: "Eliauk's Blog",
+		imgurl: "https://img.eliauk312.top/avatar/default-avatar.jpg",
+		desc: "一方天地，记录代码、生活和偶尔的奇思妙想。",
+		siteurl: "https://eliauk312.top/",
+		tags: ["Blog"],
+		weight: 5,
+		enabled: true,
+	},
+	{
+		title: "小鱼钓猫🐱",
+		imgurl: "https://img.z2m.store/file/public/1778862620159_g.png",
+		desc: "技术成长、生活随笔",
+		siteurl: "https://blog.z2m.store/",
+		tags: ["Blog"],
+		weight: 5,
+		enabled: true,
+	},
+	{
+		title: "拾光小筑",
+		imgurl: "https://img.devcoding.me/2026/07/dc71afa20797ccb6848a36ab60c86fc9.jpg",
+		desc: "一个工程师与写作者的小角落，记录代码、设计、生活与思考",
+		siteurl: "https://devcoding.me/",
+		tags: ["Blog"],
+		weight: 5,
+		enabled: true,
+	},
 ];
 
 // 获取启用的友链并进行排序
