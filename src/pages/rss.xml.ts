@@ -194,7 +194,7 @@ export async function GET(context: APIContext): Promise<Response> {
 	}
 	const response = await rss({
 		title: siteConfig.title,
-		description: siteConfig.subtitle || "No description",
+		description: siteConfig.description || siteConfig.title,
 		site,
 		customData: `<templateTheme>Firefly</templateTheme>
 		<templateThemeVersion>${pkg.version}</templateThemeVersion>
