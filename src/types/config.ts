@@ -179,11 +179,15 @@ export type LlmsConfig = {
 			path: string;
 		}>;
 	};
+
 	topics: {
 		heading: string;
 	};
-	featuredArticles: {
+
+	featuredPosts: {
 		heading: string;
+		limit: number;
+
 	};
 	usage: {
 		heading: string;

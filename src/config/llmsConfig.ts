@@ -44,16 +44,15 @@ export const llmsConfig: LlmsConfig = {
 		],
 	},
 	/**
-	 * `/llms.txt` 中主题章节的标题。
-	 * 主题条目由 `src/config/topics.ts` 的 `topicDefinitions` 动态生成，确保
-	 * 专题页、文章自动归类、知识库接口和机器入口使用同一份主题元数据。
+	 * 精选文章章节：从公开文章集合按排序动态生成 Markdown 链接列表，
+	 * 链接数量由 `limit` 控制，避免文件过长。
 	 */
 	topics: {
 		heading: "主题",
 	},
-	/** 文章列表章节标题；列表内容由公开文章动态生成，不在配置中硬编码。 */
-	featuredArticles: {
+	featuredPosts: {
 		heading: "精选文章",
+		limit: 10,
 	},
 	/**
 	 * 面向 AI 和引用者的使用边界说明，例如内容归属、时效性和引用方式。
