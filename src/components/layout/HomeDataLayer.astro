@@ -10,7 +10,10 @@ import {
 	getTagList,
 } from "@/utils/content-utils";
 import { formatDateI18n } from "@/utils/date-utils";
-import { countReadableCharacters } from "@/utils/home-data-layer.js";
+import {
+	countReadableCharacters,
+	formatCompactNumber,
+} from "@/utils/home-data-layer.js";
 import { getGuidePostSets } from "@/utils/home-guide-grid.js";
 import { getPostUrlBySlug, getTagUrl, url } from "@/utils/url-utils";
 
@@ -69,8 +72,10 @@ const statsShareId = umamiConfig?.shareId ?? "";
 		</div>
 
 		<div class="home-data-layer__top-grid">
-			<DataMetricCard title="站点访问" eyebrow="VISITS" detail="访客与浏览统计载入中" icon="material-symbols:visibility-outline-rounded" hoverTitle="访问轨迹" hoverCode="01" variant="square" pills={visitPills} statKind="visits" visualImage={homeConfig.dataLayer.visitImage} />
-			<DataMetricCard title="文章档案" eyebrow="ARCHIVE" detail={`${posts.length} 篇文章 / ${categories.length} 个分类 / ${tags.length} 个标签`} icon="material-symbols:article-outline" hoverTitle="内容索引" hoverCode="02" variant="wide" pills={articlePills} statKind="articles" visualImage={homeConfig.dataLayer.archiveImage} />
+
+			<DataMetricCard title={i18n(I18nKey.siteVisits)} eyebrow="VISITS" detail={i18n(I18nKey.visitsLoading)} icon="material-symbols:visibility-outline-rounded" hoverTitle={i18n(I18nKey.visitTrajectory)} hoverCode="01" variant="square" pills={visitPills} statKind="visits" visualImage={homeConfig.dataLayer.visitImage} />
+			<DataMetricCard title={i18n(I18nKey.articleArchive)} eyebrow="ARCHIVE" detail={`${posts.length}${i18n(I18nKey.postsCount)} · ${formatCompactNumber(totalWords)}${i18n(I18nKey.wordCount)}`} icon="material-symbols:article-outline" hoverTitle={i18n(I18nKey.contentIndex)} hoverCode="02" variant="wide" pills={articlePills} statKind="articles" visualImage={homeConfig.dataLayer.archiveImage} />
+
 		</div>
 
 		<div class="home-guide-grid">
@@ -159,6 +164,7 @@ const statsShareId = umamiConfig?.shareId ?? "";
 	import { gsap } from "gsap";
 	import { createCache } from "@/utils/cache-utils";
 	import { formatCompactNumber } from "@/utils/home-data-layer.js";
+	import { navigateToPage } from "@/utils/navigation-utils";
 	import { waitForPageLoaderHidden } from "@/utils/page-loader-controller.js";
 
 	type Cleanup = () => void;
@@ -360,7 +366,9 @@ const statsShareId = umamiConfig?.shareId ?? "";
 			const pvRaw = data.pv || data.pageviews || 0;
 			const uvCompact = formatCompactNumber(uvRaw);
 			const pvCompact = formatCompactNumber(pvRaw);
-			if (detail) detail.textContent = `访客 ${uvCompact} / 浏览 ${pvCompact}`;
+
+			if (detail) detail.textContent = `${i18n(I18nKey.siteStatsVisitors)} ${uvCompact} · ${i18n(I18nKey.viewsBrowseLabel)} ${pvCompact}`;
+
 			valueNodes.forEach((node) => {
 				const isUv = node.dataset.statValue === "UV";
 				const isPv = node.dataset.statValue === "PV";
@@ -371,7 +379,9 @@ const statsShareId = umamiConfig?.shareId ?? "";
 				node.textContent = node.dataset.compactValue;
 			});
 		}).catch(() => {
-			if (detail) detail.textContent = "访客 -- / 浏览 --";
+
+			if (detail) detail.textContent = `${i18n(I18nKey.siteStatsVisitors)} -- · ${i18n(I18nKey.viewsBrowseLabel)} --`;
+
 		});
 	}
 
@@ -475,6 +485,19 @@ const statsShareId = umamiConfig?.shareId ?? "";
 			});
 			const nextHandler = () => setActive(activeIndex + 1);
 			nextButtons.forEach((button) => button.addEventListener("click", nextHandler));
+			// 幻灯片内容区整体可点击跳转（标题链接与操作按钮除外）
+			const slideHandlers = slides.map((slide) => {
+				const handler = (event: MouseEvent) => {
+					if (event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+					if ((event.target as Element).closest("a, button")) return;
+					const targetUrl = slide.dataset.guideUrl;
+					if (!targetUrl) return;
+					event.preventDefault();
+					navigateToPage(targetUrl);
+				};
+				slide.addEventListener("click", handler);
+				return [slide, handler] as const;
+			});
 			start();
 			cleanups.push(() => {
 				stop();
@@ -484,6 +507,7 @@ const statsShareId = umamiConfig?.shareId ?? "";
 				rotator.removeEventListener("focusout", focusOut);
 				dotHandlers.forEach(([dot, handler]) => dot.removeEventListener("click", handler));
 				nextButtons.forEach((button) => button.removeEventListener("click", nextHandler));
+				slideHandlers.forEach(([slide, handler]) => slide.removeEventListener("click", handler));
 			});
 		});
 	}
