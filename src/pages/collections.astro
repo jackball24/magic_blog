@@ -152,7 +152,7 @@ const enabledApisCount = enabledGroups.reduce(
                       <div class="flex items-center gap-2 mb-3">
                         {api.icon ? (
                           api.icon.startsWith('http') ? (
-                            <img src={api.icon} alt={api.name} loading="lazy" decoding="async" class="w-6 h-6 rounded object-contain shrink-0" />
+                            <img data-src={api.icon} alt={api.name} loading="lazy" decoding="async" class="w-6 h-6 rounded object-contain shrink-0" />
                           ) : (
                             <Icon name={api.icon} class="text-2xl text-neutral-600 dark:text-neutral-300 group-hover:text-black dark:group-hover:text-white transition-colors duration-300 shrink-0" />
                           )
@@ -185,63 +185,37 @@ const enabledApisCount = enabledGroups.reduce(
     </div>
   </div>
 
-  <!-- 事件委托：document 级别，只注册一次，swup 导航后自动生效 -->
+
+  <!-- 手风琴展开/收起：纯 CSS 高度过渡，JS 仅切换状态 -->
+  <!-- 图标懒加载：收起的手风琴不请求 logo，首次展开时才把 data-src 换成 src -->
   <script is:inline>
     (function() {
-      if (window.__collectionsReady) return;
-      window.__collectionsReady = true;
-
-      function updateIndicator(targetBtn) {
-        if (!targetBtn) return;
-        var nav = targetBtn.closest("[data-tools-tab-nav]");
-        if (!nav) return;
-        var indicator = nav.querySelector("[data-tools-tab-indicator]");
-        if (!indicator) return;
-        indicator.style.left = targetBtn.offsetLeft + "px";
-        indicator.style.top = targetBtn.offsetTop + "px";
-        indicator.style.width = targetBtn.offsetWidth + "px";
-        indicator.style.height = targetBtn.offsetHeight + "px";
-        indicator.style.opacity = "1";
+      function activateIcons(accordion) {
+        accordion.querySelectorAll("img[data-src]").forEach(function(img) {
+          img.setAttribute("src", img.getAttribute("data-src"));
+          img.removeAttribute("data-src");
+        });
       }
 
-      function activateTab(targetTab) {
-        if (!targetTab) return;
-        var tabButtons = document.querySelectorAll("[data-tools-tab]");
-        var sections = document.querySelectorAll("[data-tools-section]");
-        var targetButton = null;
-        tabButtons.forEach(function(btn) {
-          if (btn.dataset.toolsTab === targetTab) targetButton = btn;
-        });
-        if (!targetButton) return;
+      // 已展开的手风琴（默认第一组）：立即加载图标
+      // 放在 ready 守卫之前，swup 切回本页（DOM 重建）时也能重新激活
+      document.querySelectorAll("[data-tools-accordion][data-open]").forEach(activateIcons);
 
-        tabButtons.forEach(function(btn) {
-          btn.classList.remove("tools-tab-btn-active");
-          btn.classList.add("tools-tab-btn-inactive");
-          btn.disabled = false;
-        });
-        targetButton.classList.remove("tools-tab-btn-inactive");
-        targetButton.classList.add("tools-tab-btn-active");
-        targetButton.disabled = true;
+      if (window.__collectionsAccordionReady) return;
+      window.__collectionsAccordionReady = true;
 
-        requestAnimationFrame(function() { updateIndicator(targetButton); });
+      document.addEventListener("click", function(e) {
+        var header = e.target.closest(".tools-accordion-header");
+        if (!header) return;
+        var accordion = header.closest("[data-tools-accordion]");
+        if (!accordion) return;
+        var open = accordion.hasAttribute("data-open");
+        if (open) {
+          accordion.removeAttribute("data-open");
+        } else {
+          accordion.setAttribute("data-open", "");
+          activateIcons(accordion);
 
-        sections.forEach(function(section) {
-          if (section.dataset.toolsSection === targetTab) {
-            section.classList.remove("hidden");
-            var cards = section.querySelectorAll(".tools-card");
-            cards.forEach(function(card) {
-              card.style.animation = "none";
-              card.offsetHeight;
-              card.style.animation = "";
-            });
-          } else {
-            section.classList.add("hidden");
-          }
-        });
-
-        var nextHash = "#tools-" + encodeURIComponent(targetTab);
-        if (window.location.hash !== nextHash) {
-          window.history.replaceState(null, "", nextHash);
         }
       }
 
