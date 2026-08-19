@@ -95,8 +95,8 @@ const description =
               <div class="friend-accordion-body">
                 <div class="friend-accordion-body-inner">
                   <div class="friend-card-grid">
-                    {group.items.map((friend, index) => (
-                      <FriendCard friend={friend} index={index} />
+                    {group.items.map((friend) => (
+                      <FriendCard friend={friend} />
                     ))}
                   </div>
                 </div>
@@ -121,6 +121,102 @@ const description =
 
       <!-- 对话气泡 + 友链规则/本站信息 -->
       <FriendChat messages={chatMessages} />
+
+      <!-- 手风琴展开/收起：纯 CSS 高度过渡，JS 仅切换状态 -->
+      <!-- 以下两个脚本必须放在 MainGridLayout 内部（#swup-container 中），否则 swup 导航到本页时脚本不会执行 -->
+      <script is:inline>
+        (function () {
+          if (window.__friendsAccordionReady) return;
+          window.__friendsAccordionReady = true;
+
+          document.addEventListener("click", function (e) {
+            var header = e.target.closest(".friend-accordion-header");
+            if (!header) return;
+            var accordion = header.closest("[data-friend-accordion]");
+            if (!accordion) return;
+            var open = accordion.hasAttribute("data-open");
+            if (open) {
+              accordion.removeAttribute("data-open");
+            } else {
+              accordion.setAttribute("data-open", "");
+            }
+            header.setAttribute("aria-expanded", open ? "false" : "true");
+          });
+        })();
+      </script>
+
+      <!-- 头像加载失败回退首字母 + 封面图加载动效 + 悬停图片预览 -->
+      <script>
+            function initFriendAvatars(): void {
+        document
+          .querySelectorAll<HTMLElement>("[data-friend-avatar]")
+          .forEach((box) => {
+            if (box.dataset.avatarBound === "true") return;
+            box.dataset.avatarBound = "true";
+
+            const img = box.querySelector("img");
+            if (!img) return;
+
+            const markError = () => box.classList.add("is-error");
+            if (img.complete && img.naturalWidth === 0) markError();
+            img.addEventListener("error", markError, { once: true });
+            img.addEventListener(
+              "load",
+              () => box.classList.remove("is-error"),
+              { once: true },
+            );
+          });
+      }
+
+      function initFriendCovers(): void {
+        document
+          .querySelectorAll<HTMLElement>("[data-friend-cover]")
+          .forEach((cover) => {
+            if (cover.dataset.coverBound === "true") return;
+            cover.dataset.coverBound = "true";
+
+            const img = cover.querySelector("img");
+            if (!img) return;
+
+            // 已加载完成（缓存命中）：不显示 loader，图片直接淡入
+            if (img.complete) {
+              if (img.naturalWidth === 0) cover.classList.add("is-error");
+              return;
+            }
+
+            // 加载中：显示滚动球 loader，图片隐藏
+            cover.classList.add("is-loading");
+            img.addEventListener(
+              "load",
+              () => cover.classList.remove("is-loading"),
+              { once: true },
+            );
+            img.addEventListener(
+              "error",
+              () => {
+                cover.classList.remove("is-loading");
+                cover.classList.add("is-error");
+              },
+              { once: true },
+            );
+          });
+      }
+
+      // 悬停卡片时浮出完整图片预览（限制尺寸 + 放大过渡），仅精确指针设备
+      
+
+      function initFriendMedia(): void {
+        initFriendAvatars();
+        initFriendCovers();
+      }
+
+      if (document.readyState === "loading") {
+        document.addEventListener("DOMContentLoaded", initFriendMedia);
+      } else {
+        initFriendMedia();
+      }
+      document.addEventListener("astro:page-load", initFriendMedia);
+      </script>
     </div>
   </div>
 
@@ -132,57 +228,4 @@ const description =
   )}
 
 </MainGridLayout>
-
-<!-- 手风琴展开/收起：纯 CSS 高度过渡，JS 仅切换状态 -->
-<script is:inline>
-  (function () {
-    if (window.__friendsAccordionReady) return;
-    window.__friendsAccordionReady = true;
-
-    document.addEventListener("click", function (e) {
-      var header = e.target.closest(".friend-accordion-header");
-      if (!header) return;
-      var accordion = header.closest("[data-friend-accordion]");
-      if (!accordion) return;
-      var open = accordion.hasAttribute("data-open");
-      if (open) {
-        accordion.removeAttribute("data-open");
-      } else {
-        accordion.setAttribute("data-open", "");
-      }
-      header.setAttribute("aria-expanded", open ? "false" : "true");
-    });
-  })();
-</script>
-
-<!-- 头像加载失败回退首字母 -->
-<script>
-  function initFriendAvatars(): void {
-    document
-      .querySelectorAll<HTMLElement>("[data-friend-avatar]")
-      .forEach((box) => {
-        if (box.dataset.avatarBound === "true") return;
-        box.dataset.avatarBound = "true";
-
-        const img = box.querySelector("img");
-        if (!img) return;
-
-        const markError = () => box.classList.add("is-error");
-        if (img.complete && img.naturalWidth === 0) markError();
-        img.addEventListener("error", markError, { once: true });
-        img.addEventListener(
-          "load",
-          () => box.classList.remove("is-error"),
-          { once: true },
-        );
-      });
-  }
-
-  if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", initFriendAvatars);
-  } else {
-    initFriendAvatars();
-  }
-  document.addEventListener("astro:page-load", initFriendAvatars);
-</script>
 

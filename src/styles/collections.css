@@ -22,18 +22,78 @@
 /* 滑动指示条（填充胶囊背景） */
 .tools-tab-indicator {
   position: absolute;
-  border-radius: 9999px;
-  background: #000;
-  transition: left 0.3s cubic-bezier(0.4, 0, 0.2, 1),
-              top 0.3s cubic-bezier(0.4, 0, 0.2, 1),
-              width 0.3s cubic-bezier(0.4, 0, 0.2, 1),
-              height 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  opacity: 0;
-  pointer-events: none;
-  z-index: 0;
+
+  left: -0.75rem;
+  top: 0.15rem;
+  bottom: 0.15rem;
+  width: 5px;
+  /* 胶囊形椭圆长条，纯色 */
+  border-radius: 999px;
+  background: #00a29b;
+  /* 悬停时伸长（与文章列表标题长条一致） */
+  transform-origin: center;
+  transition: transform 180ms ease;
 }
-:root.dark .tools-tab-indicator {
-  background: #fff;
+.tools-accordion-header:hover .tools-accordion-title-wrap::before,
+.tools-accordion-header:focus-visible .tools-accordion-title-wrap::before {
+  transform: scaleY(1.12);
+}
+
+.tools-accordion-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  line-height: 1.2;
+  color: var(--deep-text);
+  /* 悬停下划线（与文章列表标题一致）：透明色过渡淡入 */
+  text-decoration-color: transparent;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.2em;
+  transition: text-decoration-color 180ms ease;
+}
+.tools-accordion-header:hover .tools-accordion-title,
+.tools-accordion-header:focus-visible .tools-accordion-title {
+  text-decoration-line: underline;
+  text-decoration-color: currentColor;
+}
+
+/* 标题下方的小字灰色说明 */
+.tools-accordion-desc {
+  font-size: 0.8rem;
+  color: oklch(0.55 0 0);
+}
+:root.dark .tools-accordion-desc {
+  color: oklch(0.6 0 0);
+}
+
+/* 右侧展开/收起箭头 */
+.tools-accordion-arrow {
+  margin-left: auto;
+  width: 1.5rem;
+  height: 1.5rem;
+  flex-shrink: 0;
+  color: oklch(0.6 0 0);
+  transition: rotate 0.4s cubic-bezier(0.22, 1, 0.36, 1), color 0.2s ease;
+}
+.tools-accordion-header:hover .tools-accordion-arrow {
+  color: var(--deep-text);
+}
+.tools-accordion[data-open] .tools-accordion-arrow {
+  rotate: 180deg;
+}
+
+/* 展开/收起主体：grid-template-rows 过渡（合成层友好，60fps），贝塞尔缓动 */
+.tools-accordion-body {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.tools-accordion[data-open] .tools-accordion-body {
+  grid-template-rows: 1fr;
+}
+.tools-accordion-body-inner {
+  overflow: hidden;
+  min-height: 0;
+
 }
 
 /* Tab 按钮 */
@@ -132,9 +192,6 @@
   background: #fff;
   text-decoration: none;
   overflow: hidden;
-  opacity: 0;
-  transform: translateY(20px);
-  animation: toolsCardSlideIn 0.5s ease-out forwards;
   transition: border-color 300ms ease, box-shadow 300ms ease, transform 300ms ease, background-color 300ms ease;
 }
 :root.dark .tools-card {
@@ -208,11 +265,4 @@
 }
 :root.dark .tools-card-footer {
   border-color: oklch(0.2 0 0);
-}
-
-@keyframes toolsCardSlideIn {
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
 }
