@@ -388,4 +388,7 @@ export const en: Translation = {
 	[Key.calendarNearestHoliday]: "Upcoming Holidays",
 	[Key.calendarNearestBirthday]: "Upcoming Birthdays",
 	[Key.calendarNearestSchedule]: "Upcoming Schedules",
+
 };
+
+

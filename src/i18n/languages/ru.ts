@@ -389,4 +389,6 @@ export const ru: Translation = {
 	[Key.calendarNearestHoliday]: "Ближайшие праздники",
 	[Key.calendarNearestBirthday]: "Ближайшие дни рождения",
 	[Key.calendarNearestSchedule]: "Ближайшие события",
+
 };
+

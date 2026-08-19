@@ -386,4 +386,6 @@ export const ja: Translation = {
 	[Key.calendarNearestHoliday]: "直近の祝日",
 	[Key.calendarNearestBirthday]: "直近の誕生日",
 	[Key.calendarNearestSchedule]: "直近のスケジュール",
+
 };
+

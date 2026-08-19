@@ -38,6 +38,10 @@
 /* === 页面层 === */
 @import './pages/categories.css';
 
+@import './pages/article-list.css';
+@import './pages/friends.css';
+
+
 
 @plugin '@tailwindcss/typography';
 

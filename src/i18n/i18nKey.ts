@@ -369,6 +369,7 @@ enum I18nKey {
 	qqGroup = "qqGroup",
 	navPosts = "navPosts",
 	navMy = "navMy",
+	
 }
 
 export default I18nKey;

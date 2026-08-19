@@ -376,4 +376,5 @@ export const zh_CN: Translation = {
 	[Key.calendarNearestHoliday]: "最近的节日",
 	[Key.calendarNearestBirthday]: "最近的生日/纪念日",
 	[Key.calendarNearestSchedule]: "最近的安排",
+
 };
