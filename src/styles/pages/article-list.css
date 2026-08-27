@@ -250,7 +250,6 @@
 .article-list-card__article-link:focus-visible {
 	text-decoration-line: underline;
 	text-decoration-color: currentColor;
->>>>>>> 1f98b64 (feat: 更新友链列车到达和离开的动画效果，优化封面图加载逻辑)
 }
 
 .article-list-card__lock {
