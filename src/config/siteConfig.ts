@@ -7,27 +7,25 @@ const SITE_LANG = "zh_CN";
 
 export const siteConfig: SiteConfig = {
 	// 站点标题
-	title: "MmzMing的博客",
+	title: "时空L0k1的博客",
 
 	// 站点副标题
-	subtitle: "MmzMing",
+	subtitle: "时空L0k1",
 
 	// 站点 URL
-	site_url: "https://tblog.mmzhiku.xyz",
+	site_url: "https://shikongl0k1.top",
 
 	// 站点描述
-	description: "mmzming的博客，记录个人学习、工作、AI相关的内容",
+	description: "时空L0k1的博客，记录个人学习、工作、AI相关的内容",
 
 	// 站点关键词
 	keywords: [
-		"MmzMing",
-		"JAVA",
+		"时空L0k1",
+		"Kotlin",
 		"AI",
 		"Astro",
-		"ACGN",
-		"博客",
-		"技术博客",
-		"静态博客",
+		"roco kingdom",
+		"blog",
 	],
 
 	// 主题色
@@ -37,7 +35,7 @@ export const siteConfig: SiteConfig = {
 		// 是否对访问者隐藏主题色选择器
 		fixed: false,
 		// 默认模式："light" 亮色，"dark" 暗色
-		defaultMode: "dark",
+		defaultMode: "light",
 	},
 
 	// 页面整体宽度（单位：rem）
@@ -111,13 +109,13 @@ export const siteConfig: SiteConfig = {
 			alt: "logo",
 		},
 		// 导航栏标题
-		title: "MmzMing的博客",
+		title: "时空L0k1的博客",
 		// 全宽导航栏，导航栏是否占满屏幕宽度
 		widthFull: false,
 	},
 
 	// 站点开始日期，用于统计运行天数
-	siteStartDate: "2026-05-07",
+	siteStartDate: "2023-03-20",
 
 	// 站点时区（IANA 时区字符串），用于格式化bangumi、rss里的构建日期时间等等..
 	// 示例："Asia/Shanghai", "UTC", 如果为空，则按照构建服务器的时区进行时区转换
@@ -128,7 +126,7 @@ export const siteConfig: SiteConfig = {
 		start: 9, // 上班时间 9:00
 		end: 18, // 下班时间 18:00
 		// 工作日范围，0=周日 1=周一 ... 6=周六，默认周一到周五
-		workDays: [1, 2, 3, 4, 5, 6],
+		workDays: [1, 2, 3, 4, 5],
 	},
 
 	// 提醒框（Admonitions）配置，修改后需要重启开发服务器才能生效
