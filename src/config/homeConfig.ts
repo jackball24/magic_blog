@@ -30,9 +30,9 @@ export const homeConfig: HomeConfig = {
 	bio: ["且视他人之疑目如盏盏鬼火，大胆地去走你的夜路"],
 
 	hero: {
-		backgroundImage: "/assets/images/home/home.webp",
-		backgroundImageMobile: "/assets/images/home/home-mobile.webp",
-		speechAccentImage: "/assets/images/home/home2-1.webp",
+		backgroundImage: "/assets/images/home/home.avif",
+		backgroundImageMobile: "/assets/images/home/home-mobile.avif",
+		speechAccentImage: "/assets/images/home/home2-1.avif",
 
 		// galgame 对话框（写死暗黑主题）。内容全部由此驱动，可自由增删
 		dialogue: {
