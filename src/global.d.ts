@@ -13,13 +13,15 @@ declare global {
 	}
 
 	interface Window {
-		// biome-ignore lint/suspicious/noExplicitAny: External library
-		swup: any;
-		live2dModelInitialized?: boolean;
-		// biome-ignore lint/suspicious/noExplicitAny: External library (PIXI live2d)
-		_live2dApp?: any;
-		// biome-ignore lint/suspicious/noExplicitAny: External library (PIXI live2d)
-		_live2dModel?: any;
+		/**
+		 * `@swup/astro` 的 `globalInstance: true` 挂上来的实例。
+		 * swup 初始化脚本与组件脚本都是 module，执行先后不定，因此这里是可选的 ——
+		 * 读它请统一走 `@/utils/swup-lifecycle` 的 `getSwup()` / `onSwupReady()`，
+		 * 不要自己写「查实例、查不到再等 swup:enable」的时序判断。
+		 */
+		swup?: SwupInstance;
+		/** swup-lifecycle 的运行时状态，只应由该模块读写 */
+		__fireflySwupRuntime?: SwupRuntimeState;
 		spineModelInitialized?: boolean;
 		__spineAbortController?: AbortController | null;
 		__spineIdleIntervalId?: ReturnType<typeof setInterval> | null;
@@ -36,8 +38,6 @@ declare global {
 		__aiSearchMounted?: boolean;
 		__searchModalMounted?: boolean;
 		__friendImagePreviewReady?: boolean;
-		_showLive2DWidget?: () => void;
-		_closeLive2DWidget?: () => void;
 		// biome-ignore lint/suspicious/noExplicitAny: External library
 		spinePlayerInstance?: any;
 		pagefind: {
