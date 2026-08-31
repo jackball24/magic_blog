@@ -25,7 +25,7 @@ export const llmsConfig: LlmsConfig = {
 	author: {
 		heading: "作者",
 		description:
-			"MmzMing，专注 Java、AI、Astro、Redis、认证安全与个人站点工程实践。",
+			"时空L0k1，专注 Java、AI、Kotlin、Web与个人站点工程实践。",
 	},
 	/**
 	 * 提供给机器读取的稳定入口。

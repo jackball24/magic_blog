@@ -9,22 +9,22 @@ export const homeConfig: HomeConfig = {
 	avatar: "assets/images/avatar.webp",
 
 	// 上班时间头像（为空则使用上方 avatar）
-	avatarOnWork: "assets/images/avatar-work-on.webp",
+	avatarOnWork: "",
 
 	// 下班时间头像（为空则始终使用上方 avatar）
-	avatarOffWork: "assets/images/avatar-work-off.webp",
+	avatarOffWork: "",
 
 	// 名字
-	name: "MmzMing",
+	name: "时空L0k1",
 
 	// 首页展示名字（留空则使用 name）
-	displayName: "MmzMing",
+	displayName: "时空L0k1",
 
 	// 名字右侧徽章文字（如 QQ 号）
-	nameBadge: "B站：Mmz明崽",
+	nameBadge: "B站：时空L0k1",
 
 	// 职业/身份标签
-	occupation: "[(伪)全栈工程师[全干工程师] / 技术博主]",
+	occupation: "[时空L0k1 | jackball24| Jαckba11XN | Kotlin单推人]",
 
 	// 个人签名（支持多条，会循环打字+删除效果）
 	bio: ["且视他人之疑目如盏盏鬼火，大胆地去走你的夜路"],
@@ -38,7 +38,7 @@ export const homeConfig: HomeConfig = {
 		dialogue: {
 			enabled: true,
 			speakers: {
-				host: "哈基墩",
+				host: "时空L0k1",
 				visitor: "访客",
 			},
 			menuTitle: "想聊点什么？",
@@ -218,13 +218,13 @@ export const homeConfig: HomeConfig = {
 		{
 			name: "B站",
 			icon: "fa7-brands:bilibili",
-			url: "https://space.bilibili.com/15446538",
+			url: "https://space.bilibili.com/185591917",
 			showName: false,
 		},
 		{
 			name: "GitHub",
 			icon: "fa7-brands:github",
-			url: "https://github.com/MmzMing",
+			url: "https://github.com/jackball24",
 			showName: false,
 		},
 		{

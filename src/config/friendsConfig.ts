@@ -17,13 +17,13 @@ export const friendsPageConfig: FriendsPageConfig = {
 	// 友链申请链接，填写后会在友链页面显示申请按钮
 	// 使用模板参数直接跳转到友链申请模板
 	applyLink:
-		"https://github.com/MmzMing/my-blog/issues/new?template=friend-link.yml",
+		"https://github.com/jackball24/magic_blog/issues/new?template=friend-link.yml",
 
 	// 本站信息，用于友链申请指南弹窗中的站点信息展示
 	siteInfo: {
-		name: "MmzMing的知识库",
-		desc: "哈基米，南北绿豆",
-		url: "https://tblog.mmzhiku.xyz",
+		name: "时空L0k1的知识库",
+		desc: "热爱开发&Agent技术的萌新",
+		url: "https://shikongl0k1.top",
 		avatar: "https://i.stardots.io/784774835/StarDots-2026052116374135506.jpg",
 		email: "784774835@qq.com",
 	},
@@ -82,9 +82,9 @@ export const friendsConfig: FriendLink[] = [
 	},
 	{
 		title: "原博客(已迁移)",
-		imgurl: "https://i.stardots.io/784774835/StarDots-2026052116445539713.jpg",
-		desc: "目前只展示前端，仿B站，微服务架构，支持视频上传和播放，文档上传和下载，后台还带链路监控、日志监控等功能等等。因为使劲堆后台，内存消耗实在太大部署不起",
-		siteurl: "https://dev.mmzmingzsk.dpdns.org/",
+		imgurl: "",
+		desc: "旧的不去，新的不来",
+		siteurl: "https://jakcbal24.github.io/",
 		tags: ["Blog"],
 		weight: 5,
 		enabled: true,

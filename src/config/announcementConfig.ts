@@ -10,7 +10,7 @@ export const announcementConfig: AnnouncementConfig = {
 			tag: "欢迎",
 			title: "关于我的介绍",
 			content:
-				"欢迎来到我的博客，我是深耕java、python和react技术开发。热爱技术、持续学习，欢迎同好交流探讨，也欢迎大佬互换友链。",
+				"欢迎来到我的博客，作者是热爱开发&Agent技术的萌新。欢迎同好交流探讨，也欢迎大佬互换友链。",
 			time: "2025-06-01",
 			link: "/about/",
 			sort: 1,

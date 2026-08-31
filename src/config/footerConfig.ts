@@ -5,7 +5,7 @@ export const footerConfig: FooterConfig = {
 	socialLinks: [
 		{
 			label: "GitHub",
-			href: "https://github.com/MmzMing",
+			href: "https://github.com/jackball24",
 			icon: "fa7-brands:github",
 		},
 		{
@@ -15,12 +15,12 @@ export const footerConfig: FooterConfig = {
 		},
 		{
 			label: "B站",
-			href: "https://space.bilibili.com/15446538",
+			href: "https://space.bilibili.com/185591917",
 			icon: "fa7-brands:bilibili",
 		},
 		{
 			label: "邮箱",
-			href: "mailto:784774835@qq.com",
+			href: "mailto:2476440166@qq.com",
 			icon: "material-symbols:mail",
 		},
 	],
